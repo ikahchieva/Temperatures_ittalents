@@ -1,0 +1,78 @@
+import java.util.Scanner;
+public class Demo3zad {
+public static void main(String[] args){
+	Scanner sc= new Scanner(System.in);
+	int n;
+	System.out.println("How many days: ");
+	n=sc.nextInt();
+	int [] month=new int[n];
+	for(int i=0;i<n;i++){
+		System.out.println("enter average temp for day " +(i+1) );
+		month[i]=sc.nextInt();
+	}
+	//sredna temp
+	int monthAvg=0;
+	for(int i=0;i<n;i++){
+		monthAvg+=month[i];
+	}
+	monthAvg/=month.length;
+	System.out.println("Sredna temp za meseca: " + monthAvg);
+	
+	//poredica ot temp po-niski ot srednata
+	int oldIndex=0,newIndex=0;
+	int oldCount=0,newCount=0;
+	for(int i=0;i<n;i++){
+		if(month[i]<monthAvg){
+			newCount++;
+		}else{
+			if(newCount>oldCount){
+				oldCount=newCount;
+				oldIndex=newIndex;
+			}
+				newCount=0;
+				if(i+1<n)
+					newIndex=i+1;
+			}
+		}
+	System.out.println();
+	System.out.println("Nai-dylga poredica ot dni s po-niska ot srednata temperatura: ");
+	if(newCount>oldCount){
+		for(int i=newIndex;i<newCount;i++){
+			System.out.print(month[i]+" ");
+		}
+	}else{
+	for(int i=oldIndex;i<=oldCount;i++){
+		System.out.print(month[i]+" ");
+	} 
+	}
+	//poredica ot studeni dni
+	oldIndex=0;
+	newIndex=0;
+	oldCount=0;
+	newCount=1;
+	for(int i=1;i<n;i++){
+		if(month[i]<month[i-1]){
+			newCount++;
+		}
+		else{
+			if(oldCount<newCount){
+			oldCount=newCount;
+			oldIndex=newIndex;
+			}
+			newIndex=i;
+			newCount=0;
+		}
+	}
+	System.out.println();
+	System.out.println("Nai-dylga poredica ot  studeni dni : ");
+	if(oldCount>newCount){
+	for(int i=oldIndex;i<oldCount;i++){
+		System.out.print(month[i]+ " ");
+	} 
+}else{
+	for(int i=newIndex;i<newCount;i++){
+		System.out.print(month[newIndex+i]+ " ");
+	}
+}
+}
+}
